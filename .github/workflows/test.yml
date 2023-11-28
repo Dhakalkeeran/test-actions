@@ -1,0 +1,40 @@
+name: CI
+
+on:
+    - push
+    - pull_request
+
+jobs:
+    build:
+        name: ezsmt-test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            
+            - name: Install CMake
+              run: |
+                sudo snap install cmake --classic
+                cmake --version
+
+            - name: Install dependencies
+              run: sudo apt-get install build-essential
+            
+            - name: Install Boost
+              run: |
+                wget https://boostorg.jfrog.io/artifactory/main/release/1.79.0/source/boost_1_79_0.tar.bz2
+                sudo unzip boost_1_79_0.bz2
+                sudo ./bootstrap.sh
+                sudo ./b2 install
+
+            - name: Build
+              run: |
+                mkdir build
+                cd build
+                cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug ..
+                cmake --build .
+            
+            - name: Run tests
+              run: |
+                ./ezsmt --help
+            
+            

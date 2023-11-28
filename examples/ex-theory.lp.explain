@@ -1,0 +1,21 @@
+❯ ./tools/gringo-5.5.1 ex-theory.lp
+asp 1 0 0
+1 0 1 1 0 1 -2              b :- -a.
+1 0 1 2 0 1 -1              a :- -b.
+1 0 1 3 0 2 1 2             e :- a, b.
+1 0 1 3 0 2 -1 -2           e :- not a, not b.
+1 0 1 4 0 1 -3              'required {x} <= 9' :- -e.
+1 0 1 5 0 1 3               'required {x} >= 10' :- e.
+9 1 0 8 required            term 0=required
+9 1 3 1 x                   term 3=x
+9 4 0 1 3 0                 elements 0=term 3=x
+9 1 2 2 <=                  term 2='<='
+9 0 1 9                     term 1=9
+9 6 4 0 1 0 2 1             atom 4='required { x } <= 9'
+9 1 5 2 >=                  term 5='>='
+9 0 4 10                    term 4=10
+9 6 5 0 1 0 5 4             atom 5='required { x } >= 10'
+4 1 b 1 1
+4 1 a 1 2
+4 1 e 1 3
+0
